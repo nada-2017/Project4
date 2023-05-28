@@ -46,34 +46,54 @@ public class MovieService {
             throw new ApiException("Not found");
         movieRepository.delete(m);
     }
-
+    
     public Movie getMovieByTitle(String name){
-        return movieRepository.getMovieByName(name);
+        Movie m = movieRepository.getMovieByName(name);
+        if (m == null)
+            throw new ApiException("Not found");
+        return m;
     }
 
     public Integer getDurationOfMovieName(String name){
-        return movieRepository.getDurationOfMovieName(name);
+        Integer d = movieRepository.getDurationOfMovieName(name);
+        if (d == 0)
+            throw new ApiException("Not found");
+        return d;
     }
 
     public String getDirectorNameByMovieName(String name){
         Integer id = movieRepository.getDirectorByMovieName(name);
+        if (id == 0)
+            throw new ApiException("Not found");
         Director d = directorRepository.getDirectorById(id);
         return d.getName();
     }
 
     public List<Movie> getMoviesByDirectorID(Integer director){
-        return movieRepository.getMoviesByDirectorID(director);
+        List<Movie> movies = movieRepository.getMoviesByDirectorID(director);
+        if (movies.size() == 0)
+            throw new ApiException("Not found");
+        return movies;
     }
 
     public Double getRateOfMovie(String name){
-        return movieRepository.getRateOfMovie(name);
+        Double d = movieRepository.getRateOfMovie(name);
+        if (d == 0)
+            throw new ApiException("Not found");
+        return d;
     }
 
     public List<Movie> getMoviesByRating(Double rate){
-        return movieRepository.getMoviesByRating(rate);
+        List<Movie> movies = movieRepository.getMoviesByRating(rate);
+        if (movies.size() == 0)
+            throw new ApiException("Not found");
+        return movies;
     }
 
     public List<Movie> getMoviesByGenre(String genre){
-        return movieRepository.getMoviesByGenre(genre);
+        List<Movie> movies = movieRepository.getMoviesByGenre(genre);
+        if (movies.size() == 0)
+            throw new ApiException("Not found");
+        return movies;
     }
 }
